@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhit.dao.TeacherDao">
+    <resultMap id="TeaResultMap" type="com.hhit.model.Teacher">
+        <result column="teacherID" property="teacherID" jdbcType="VARCHAR" />
+        <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+        <result column="teacherPwd" property="teacherPwd" jdbcType="VARCHAR" />
+        <result column="teacherTitle" property="teacherTitle" jdbcType="VARCHAR" />
+        <result column="teacherDep" property="teacherDep" jdbcType="VARCHAR" />
+        <result column="teacherCou" property="teacherCou" jdbcType="VARCHAR" />
+
+    </resultMap>
+    <select id="selectByteaname" resultType="com.hhit.model.Teacher" parameterType="String">
+        select * from teacher where teacherName=#{teacherName}
+    </select>
+    <select id="teaSearchall" resultType="com.hhit.model.Teacher" >
+        select * from teacher
+    </select>
+    <select id="searchteaList" parameterType="com.hhit.model.Page" resultMap="TeaResultMap">
+         select * from teacher limit #{startRow},#{pageSize}
+</select>
+<select id="selectByteaid" resultType="com.hhit.model.Teacher" parameterType="String">
+        select * from teacher where teacherID=#{teacherID}
+
+    </select>
+    <select id="searchTotalCount" parameterType="com.hhit.model.Page" resultType="java.lang.Integer">
+       select count(teacherID) from teacher
+    <where>
+        <if test="queryCondition!=null">
+            and teacherName like CONCAT('%',#{queryCondition},'%')
+        </if>
+    </where>
+    </select>
+    <update id="teaupdatepwd" parameterType="com.hhit.model.Teacher">
+        UPDATE teacher set teacherPwd=#{teacherPwd} where teacherID=#{teacherID}
+    </update>
+    <update id="updatetea" parameterType="com.hhit.model.Teacher">
+        update teacher set teacherID=#{teacherID},teacherPwd=#{teacherPwd},teacherTitle=#{teacherTitle},teacherDep=#{teacherDep},teacherCou=#{teacherCou}
+        where teacherName=#{teacherName}
+    </update>
+    <delete id="deletetea" parameterType="Int">
+        delete from teacher where teacherID=#{teacherID}
+    </delete>
+    <insert id="addtea" parameterType="com.hhit.model.Teacher">
+        insert into teacher(teacherName,teacherID,teacherPwd,teacherTitle,teacherDep,teacherCou) values(#{teacherName},#{teacherID},#{teacherPwd},#{teacherTitle},#{teacherDep},#{teacherCou})
+    </insert>
+</mapper>

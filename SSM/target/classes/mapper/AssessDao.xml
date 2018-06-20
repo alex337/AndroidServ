@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.hhit.dao.AssessDao">
+
+
+        <insert id="addassess" parameterType="com.hhit.model.Assess">
+            insert into assess(stuID,wName,assess,score) values(#{stuID},#{wName},#{assess},#{score})
+        </insert>
+    <select id="selectnameid" resultType="com.hhit.model.Assess" parameterType="java.util.List">
+        select * from assess where wName=#{0}and stuID=#{1}
+    </select>
+    <update id="updateass" parameterType="com.hhit.model.Assess">
+        update assess set score=#{score},assess=#{assess}
+        where wName=#{wName}and stuID=#{stuID}
+    </update>
+
+
+
+</mapper>

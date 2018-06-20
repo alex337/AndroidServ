@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.hhit.dao.WorkDao">
+    <resultMap id="WorkResultMap" type="com.hhit.model.Work">
+        <result column="wName" property="wName" jdbcType="VARCHAR" />
+        <result column="stuID" property="stuID" jdbcType="VARCHAR" />
+        <result column="filename" property="filename" jdbcType="VARCHAR" />
+        <result column="filepath" property="filepath" jdbcType="VARCHAR" />
+        <result column="wNum" property="wNum" jdbcType="VARCHAR" />
+        <result column="upuser" property="upuser" jdbcType="VARCHAR" />
+        <result column="date" property="date" jdbcType="TIMESTAMP" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="coursename" property="coursename" jdbcType="VARCHAR" />
+        <result column="stuClass" property="stuClass" jdbcType="VARCHAR" />
+
+    </resultMap>
+    <select id="workSearchall" parameterType="java.lang.String" resultType="com.hhit.model.Work" >
+        select * from work where stuID=#{stuID}
+    </select>
+    <!--文件的长传信息处理-->
+    <insert id="addWork" parameterType="com.hhit.model.Work">
+        insert into work(wName,upuser,date,stuID,remark,coursename,term,stuClass)
+        value(#{wName},#{upuser},#{date},#{stuID},#{remark},#{coursename},#{term},#{stuClass})
+    </insert>
+
+    <delete id="deletework" parameterType="Int">
+        DELETE FROM work where wID=#{wID}
+    </delete>
+    <select id="getworkBycondtion" parameterType="com.hhit.model.Page" resultMap="WorkResultMap">
+        select * from work
+        <where>
+            <if test="queryCondition!=null">
+                date like  CONCAT('%',#{queryCondition},'%') or upuser like  CONCAT('%',#{queryCondition},'%')
+            </if>
+        </where>
+    </select>
+    <select id="searchworkList" parameterType="com.hhit.model.Page" resultMap="WorkResultMap">
+
+        select * from work limit #{startRow},#{pageSize}
+
+    </select>
+
+    <select id="searchTotalCount" parameterType="com.hhit.model.Page" resultType="java.lang.Integer">
+        select count(wID) from work
+        <where>
+            <if test="queryCondition!=null">
+                and date like CONCAT('%',#{queryCondition},'%') or upuser like  CONCAT('%',#{queryCondition},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectBywName" resultType="com.hhit.model.Work" parameterType="String">
+        select * from work where wName=#{wName}
+    </select>
+    <select id="selectnameid" resultType="com.hhit.model.Work" parameterType="java.util.List">
+        select * from work where wName=#{0}and stuID=#{1}and coursename=#{2} and term=#{3}
+    </select>
+    <delete id="deleteworkbyname" parameterType="java.util.List">
+        delete from work where wName=#{0} and stuID=#{1}and coursename=#{2} and term=#{3}
+    </delete>
+</mapper>

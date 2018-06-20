@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hhit.dao.StudentDao">
+    <!--<resultMap type="student" id="stuResultMap">-->
+        <!--&lt;!&ndash; id表示查询结果集中的唯一标识-->
+        <!--column：查询出来的列名-->
+        <!--property：type指定的pojo类型中的属性名-->
+        <!--最终resultMap对column和property做一个映射关系（对应关系）-->
+        <!--&ndash;&gt;-->
+        <!--<id column="stuID" property="stuID"/>-->
+        <!--&lt;!&ndash; result对扑通名映射定义-->
+        <!--column：查询出来的列名-->
+        <!--property：type指定的pojo类型中的属性名-->
+        <!--最终resultMap对column和property做一个映射关系（对应关系）-->
+         <!--&ndash;&gt;-->
+        <!--<result column="stuName" property="stuName"/>-->
+
+        <!--<result column="stuClass" property="stuClass"/>-->
+    <!--</resultMap>-->
+    <resultMap id="BaseResultMap" type="com.hhit.model.Student">
+        <result column="stuID" property="stuID" jdbcType="VARCHAR" />
+        <result column="stuName" property="stuName" jdbcType="VARCHAR" />
+        <result column="stuClass" property="stuClass" jdbcType="VARCHAR" />
+        <result column="stuSta" property="stuSta" jdbcType="VARCHAR" />
+        <result column="stuAbsence" property="stuAbsence" jdbcType="INTEGER" />
+        <result column="stuStatus" property="stuStatus" jdbcType="INTEGER" />
+        <result column="date" property="date" jdbcType="DATE" />
+    </resultMap>
+    <select id="selectBystuname" resultType="com.hhit.model.Student" parameterType="String">
+        select * from student where stuName=#{stuName}
+    </select>
+    <select id="selectBystuid" resultType="com.hhit.model.Student" parameterType="String">
+        select * from student where stuID=#{stuID}
+    </select>
+    <select id="selectBystuclass" resultType="com.hhit.model.Student" parameterType="String">
+        select * from student where stuClass=#{stuClass}
+    </select>
+    <!--<select id="selectLogin" resultType="com.hhit.model.User" parameterType="String">-->
+        <!--select * from user where username=#{username}-->
+    <!--</select>-->
+
+    <!--<select id="selectlogin" resultType="com.hhit.model.User" parameterType="com.hhit.model.User">-->
+        <!--select * from user where username=#{username} and password=#{password}-->
+    <!--</select>-->
+
+    <update id="stuupdatepass" parameterType="com.hhit.model.Student">
+        UPDATE student set stuPwd=#{stuPwd} where stuID=#{stuID}
+    </update>
+
+    <select id="stuSearchall" resultType="com.hhit.model.Student" >
+        select * from student
+    </select>
+    <select id="stusearchlist" resultType="java.lang.String" >
+        select stuID from student
+    </select>
+    <select id="searchabsence" resultType="com.hhit.model.Student" >
+        select * from student where stuStatus="未到" and stuClass like CONCAT('%',#{stuClass},'%')
+    </select>
+    <select id="absence" resultType="com.hhit.model.Student" >
+        select * from student where stuClass like CONCAT('%',#{stuClass},'%')
+    </select>
+    <select id="stuCount" parameterType="com.hhit.model.Student" resultType="java.lang.Integer" >
+        select count(*) from student
+    </select>
+    <select id="stuclassCount" parameterType="com.hhit.model.Student" resultType="java.lang.Integer" >
+        select count(*) from student where stuClass=#{stuClass}
+    </select>
+    <select id="findBypage" parameterType="Map" resultMap="BaseResultMap">
+        select * from student
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <select id="findByclass" parameterType="Map" resultMap="BaseResultMap">
+        select * from student where stuClass=#{stuClass}
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <select id="getstuBycondtion" parameterType="com.hhit.model.Page" resultMap="BaseResultMap">
+       select * from student
+        <where>
+            <if test="queryCondition!=null">
+                stuClass like  CONCAT('%',#{queryCondition},'%')
+            </if>
+        </where>
+    </select>
+    <select id="searchstuList" parameterType="com.hhit.model.Page" resultMap="BaseResultMap">
+
+        select * from student limit #{startRow},#{pageSize}
+
+    </select>
+
+    <select id="searchTotalCount" parameterType="com.hhit.model.Page" resultType="java.lang.Integer">
+        select count(stuID) from student
+        <where>
+        <if test="queryCondition!=null">
+            and stuClass like CONCAT('%',#{queryCondition},'%')
+        </if>
+    </where>
+    </select>
+    <update id="updatestu" parameterType="com.hhit.model.Student">
+        update student set stuClass=#{stuClass},stuPwd=#{stuPwd},stuID=#{stuID}
+        where stuName=#{stuName}
+    </update>
+    <update id="updatestatus" parameterType="com.hhit.model.Student">
+        update student set stuStatus=0
+    </update>
+    <delete id="deletestu" parameterType="Int">
+        delete from student where stuID=#{stuID}
+    </delete>
+    <insert id="addstu" parameterType="com.hhit.model.Student">
+        insert into student(stuName,stuID,stuPwd,stuClass) values(#{stuName},#{stuID},#{stuPwd},#{stuClass})
+    </insert>
+    <update id="stucall" parameterType="com.hhit.model.Student">
+        update student set stuStatus=#{stuStatus},stuAbsence=#{stuAbsence},date=#{date} where stuID=#{stuID}
+    </update>
+    <update id="stureg" parameterType="com.hhit.model.Student">
+        update student set stuStatus=#{stuStatus},stuAbsence=#{stuAbsence} where stuID=#{stuID}
+    </update>
+    <select id="selectclass" resultType="java.lang.String"  >
+        select distinct stuClass from student
+    </select>
+    <select id="selectstudent" resultType="com.hhit.model.Student" parameterType="String" >
+        select * from student where stuClass=#{stuClass}
+    </select>
+
+</mapper>
+
+

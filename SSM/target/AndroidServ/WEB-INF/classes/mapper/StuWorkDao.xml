@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.hhit.dao.StuWorkDao">
+    <resultMap id="StuWorkResultMap" type="com.hhit.model.StuWork">
+        <result column="stuname" property="stuname" jdbcType="VARCHAR" />
+        <result column="filename" property="filename" jdbcType="VARCHAR" />
+        <result column="filepath" property="filepath" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="date" property="date" jdbcType="TIMESTAMP" />
+        <result column="stuID" property="stuID" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="TIMESTAMP" />
+        <result column="wName" property="wName" jdbcType="VARCHAR" />
+        <result column="teacherName" property="teacherName" jdbcType="VARCHAR" />
+        <result column="coursename" property="coursename" jdbcType="VARCHAR" />
+        <result column="term" property="term" jdbcType="VARCHAR" />
+        <result column="stuClass" property="stuClass" jdbcType="VARCHAR" />
+    </resultMap>
+    <select id="stuworkSearchall" resultType="com.hhit.model.StuWork" >
+        select * from stuwork
+    </select>
+
+
+    <!--文件的长传信息处理-->
+    <insert id="addStuWork" parameterType="com.hhit.model.StuWork">
+        insert into stuwork(stuname,filename,filepath,status,stuID,date,remark,wName,teacherName,coursename,term,stuClass)
+        value(#{stuname},#{filename},#{filepath},#{status},#{stuID},#{date},#{remark},#{wName},#{teacherName},#{coursename},#{term},#{stuClass})
+    </insert>
+    <select id="searchTotalCount" parameterType="com.hhit.model.Page" resultType="java.lang.Integer">
+        select count(ID) from stuwork
+    </select>
+    <delete id="deleteworkbyname" parameterType="java.util.List">
+        delete from stuwork where wName=#{0} and stuID=#{1}
+    </delete>
+    <select id="selectnameid" resultType="com.hhit.model.StuWork" parameterType="java.util.List">
+        select * from stuwork where wName=#{0}and stuID=#{1}and coursename=#{2} and term=#{3}
+    </select>
+    <update id="stuupdatesta" parameterType="com.hhit.model.StuWork">
+        UPDATE stuwork set status=#{status} where stuID=#{stuID} and wName=#{wName}and coursename=#{coursename}and term=#{term}
+    </update>
+    <select id="selecfinish" resultType="com.hhit.model.StuWork" parameterType="java.util.List">
+        select * from stuwork where stuID=#{0} and status=#{1}
+    </select>
+    <update id="stuupdateass" parameterType="com.hhit.model.StuWork">
+        UPDATE stuwork set score=#{score},assess=#{assess} where stuID=#{stuID} and wName=#{wName} and coursename=#{coursename}and term=#{term}
+    </update>
+    <select id="stuworksearchsta" resultType="com.hhit.model.StuWork" >
+        select * from stuwork where status="已交"
+    </select>
+    <select id="stuworkfinish" resultType="com.hhit.model.StuWork" >
+        select * from stuwork where status="已交" and score is not null
+    </select>
+    <select id="stuworktea" resultType="com.hhit.model.StuWork" >
+        select * from stuwork where status="已交" and teacherName=#{teacherName}
+    </select>
+    <select id="selectgrade" resultType="com.hhit.model.StuWork" parameterType="java.util.List">
+        select * from stuwork where stuClass=#{0} and coursename=#{1} and term=#{2} and status="已评价"
+    </select>
+
+</mapper>

@@ -1,0 +1,242 @@
+@charset "UTF-8";
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    font-family: "微软雅黑","宋体";
+}
+/*这是网页第一行标题的部分*/
+.header{
+    /*width: 1000px;*/
+    height: 35px;
+    /*margin: 0px auto;*/
+    background-color:#F9F9F9 ;
+    border-bottom: #EEEEEE 1px solid;
+}
+/*inner_c是为了使第一行标题栏相关内容居中显示*/
+    .inner_c{
+        width: 1000px;
+        /*height: 20px;*/
+        margin: 0px auto;
+        /*border: 1px solid red;*/
+        /*background-color: #38b774;*/
+    }
+    /*登录界面字体设计*/
+       .header_left{
+           float: left;
+           width: 500px;
+           /*background-color: #38b774;*/
+           text-align: left;
+           line-height: 35px;
+           color: #9A9A9A;
+       }
+      .header_right{
+           float: left;
+           width: 497px;
+          /*background-color:#818496;*/
+          line-height: 35px;
+      }
+             .header ul{
+                 width: 250px;
+                 list-style: none;
+                 float: left;
+                /* border: 1px solid black;*/
+             }
+             /*登录注册公司合作设计*/
+             .header ul li{
+                 float: left;
+                 width: 80px;
+                 /*border: 1px solid black;*/
+                 line-height: 35px;
+                 text-align: center;
+                 color: #9A9A9A;
+                 /*border-right: 1px solid #9A9A9A;*/
+             }
+             /*咨询电话字体设计*/
+             .header .hri_right{
+                 text-align: right;
+                 color: #9A9A9A;
+             }
+/*这个是身体部分的嵌入内容inner_body,为了控制内容居中*/
+.inner_body{
+    width: 1000px;
+    height: 160px;
+    margin: 0px auto;
+    /*background-color: #38b774;*/
+
+}
+/*身体上部分内容，主要加载一个图片*/
+.body_top{
+}
+    .body_top p{
+        font-size: 40px;
+        /*line-height: 145px;*/
+        /*background-color: #999999;*/
+        float: left;
+
+    }
+   .body_top img{
+       width: 250px;
+       height: 150px;
+   }
+   .body_top .p_id1{
+       line-height: 145px;
+       font-family: Pristina;
+   }
+/*身体中间部分，主要是左边一个图片，和右边一个登录表单*/
+.body_center{
+   /* width: auto;
+    height: 250px;
+    background-color: #9A9A9A;*/
+}
+/*这里主要是身体中间部分左边是一张装修图片，右边是登录table*/
+.inner_body2{
+    width: 1000px;
+    height: 350px;
+    margin: 0px auto;
+    /*background-color: #38b774;*/
+    border-bottom: 1px solid #EEEEEE;
+    border-top:1px solid #EEEEEE ;
+
+}
+         /*图片部分*/
+      .bc_left{
+          width: 450px;
+          height: 300px;
+          float: left;
+          /*background-color: #00af04;*/
+          margin-left: 30px;
+          margin-top: 20px;
+
+      }
+      .bc_left img{
+          width: 447px;
+          height: 297px;
+      }
+      .bc_left p{
+
+      }
+      /*这里部分是登录表的信息*/
+        .bc_right{
+            width: 380px;
+            height: 300px;
+            float: left;
+            margin-left: 60px;
+            margin-top: 20px;
+            /*background-color: #ddcd8d;*/
+            border: 1px solid #EEEEEE;
+
+        }
+        .bc_right p{
+            width: 310px;
+            height: 40px;
+            margin-left: 30px;
+            border-bottom: 2px solid #EEEEEE;
+        }
+        .bc_right .p_login{
+            width: 310px;
+            height: 40px;
+            font-size: 16px;
+            margin-left: 30px;
+            margin-top: 30px;
+            border-radius:5px;
+            background-color: #F37022;
+            color: white;
+            line-height: 40px;
+            text-align: center;
+            border-bottom: 1px solid #9A9A9A;
+        }
+        .bc_right .p_login:hover{
+            font-size: 18px;
+            cursor: default;
+            background-color: green;
+        }
+            /*这部分是用户名输入框设计*/
+            .name_input{
+                /*background: url("../images/user1.png")no-repeat 280px ;*/
+                width: 300px;
+                height: 40px;
+                border-radius:5px;
+                border: 1px solid #999999;
+                box-shadow: 1px 1px 3px #cccccc;
+                padding-left: 10px;
+                margin-left: 30px;
+                margin-top: 10px;
+                font-size: 18px;
+                background-color: #F9F9F9;
+            }
+            .pass_input{
+                /*background: url("../images/user1.png")no-repeat 280px ;*/
+                width: 300px;
+                height: 40px;
+                border-radius:5px;
+                border: 1px solid #999999;
+                box-shadow: 1px 1px 3px #cccccc;
+                padding-left: 10px;
+                font-size: 18px;
+                margin-left: 30px;
+                margin-top: 30px;
+                background-color: #F9F9F9;
+            }
+            .bc_right a{
+                display: block;
+                text-decoration: none;
+                color: black;
+                margin-top: 5px;
+                font-size: 16px;
+                margin-left: 276px;
+            }
+            .bc_right a:hover{
+                color: red;
+            }
+/*身体下部分，目前内容待定*/
+.bottom{
+   width: auto;
+    background-color: #212121;
+    margin-top: 48px;
+}
+.inner_bottom{
+    width: 1000px;
+    height: 80px;
+    margin: 0px auto;
+    background-color: #212121;
+}
+
+ .p_l{
+    float:left;
+    color: #818496;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-top: 30px;
+    /*border: 1px solid black;*/
+}
+
+.p_r img{
+    width: 40px;
+    height: 55px;
+    /*border: 1px solid black;*/
+    padding-top: 15px;
+}
+.pay_list_c1 {
+    width: 24px;
+    height: 18px;
+    float: left;
+    padding-top: 3px;
+    cursor: pointer;
+    text-align: center;
+    margin-right: 10px;
+    background-image: url(images/inputradio.gif);
+    background-repeat: no-repeat;
+    background-position: -24px 0;
+}
+.rad{
+    opacity: 0;
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+}
+.on {
+    background-position: 0 0;
+}
+

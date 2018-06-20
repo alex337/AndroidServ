@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+    <!-- 自动扫描controller-->
+    <context:component-scan base-package="com.hhit.controller"/>
+
+    <!-- 开启SpringMVC注解模式，表示该项目可以使用注解方式 -->
+    <mvc:annotation-driven/>
+    <!-- 静态资源默认servlet配置,这个地方是为了显示jsp和样式的整合，不然无法显示样式
+         web.xml配置文件里边如果是/的话需要这个，不然是不需要的-->
+    <mvc:default-servlet-handler/>
+
+    <!-- 配置springmvc框架视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <!--通过setter方法注入前缀-->
+        <property name="prefix" value="/jsp/"/>
+        <!--通过setter方法注入后缀，所以最终的controller里边的返回值加上前缀和后缀
+            就是相关的jsp路径的名字-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <!--判断是否为附件上传内容既enctype="multipart/form-data"
+    转换对象封装数据，这里表示支持文件上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="10485760000"/>
+        <property name="maxInMemorySize" value="40960"/>
+    </bean>
+
+</beans>

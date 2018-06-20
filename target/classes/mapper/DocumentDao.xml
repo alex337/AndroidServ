@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.hhit.dao.DocumentDao">
+    <resultMap id="DocumentResultMap" type="com.hhit.model.Document">
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="filename" property="filename" jdbcType="VARCHAR" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        <result column="filepath" property="filepath" jdbcType="VARCHAR" />
+        <result column="upuser" property="upuser" jdbcType="VARCHAR" />
+        <result column="create_date" property="create_date" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <select id="documentSearchall" resultType="com.hhit.model.Document" >
+        select * from document
+    </select>
+    <!--文件的长传信息处理-->
+    <insert id="addDocument" parameterType="com.hhit.model.Document">
+        insert into document(title,filename,remark,filepath,create_date,upuser)
+        value(#{title},#{filename},#{remark},#{filepath},#{create_date},#{upuser})
+    </insert>
+
+    <delete id="deletedocument" parameterType="Int">
+        DELETE FROM document where id=#{id}
+    </delete>
+    <select id="getdocBycondtion" parameterType="com.hhit.model.Page" resultMap="DocumentResultMap">
+        select * from document
+        <where>
+            <if test="queryCondition!=null">
+                create_date like  CONCAT('%',#{queryCondition},'%') or  upuser like  CONCAT('%',#{queryCondition},'%')
+            </if>
+        </where>
+    </select>
+    <select id="searchdocList" parameterType="com.hhit.model.Page" resultMap="DocumentResultMap">
+
+        select * from document limit #{startRow},#{pageSize}
+
+    </select>
+
+    <select id="searchTotalCount" parameterType="com.hhit.model.Page" resultType="java.lang.Integer">
+    select count(id) from document
+    <where>
+        <if test="queryCondition!=null">
+            and create_date like CONCAT('%',#{queryCondition},'%')
+        </if>
+    </where>
+    </select>
+    <!-- <select id="selectUser" resultType="com.hhit.model.User" parameterType="String">
+         select * from user where username=#{username}
+     </select>
+
+
+
+     <update id="updatePass" parameterType="com.hhit.model.User">
+         UPDATE user set password=#{password} where username=#{username}
+     </update>
+     <insert id="insertPhoto" parameterType="com.hhit.model.AdminPhoto">
+         insert into adminphoto(photoname,photourl) value(#{photoname},#{photourl})
+     </insert>
+
+     <select id="selectPhoto" resultType="com.hhit.model.AdminPhoto">
+         SELECT * from adminphoto;
+     </select>
+
+     <select id="searchUserAll" resultType="com.hhit.model.User">
+         SELECT * from user;
+     </select>-->
+
+
+<!-- <select id="selectUser" resultType="com.hhit.model.User" parameterType="String">
+     select * from user where username=#{username}
+ </select>
+
+
+
+ <update id="updatePass" parameterType="com.hhit.model.User">
+     UPDATE user set password=#{password} where username=#{username}
+ </update>
+ <insert id="insertPhoto" parameterType="com.hhit.model.AdminPhoto">
+     insert into adminphoto(photoname,photourl) value(#{photoname},#{photourl})
+ </insert>
+
+ <select id="selectPhoto" resultType="com.hhit.model.AdminPhoto">
+     SELECT * from adminphoto;
+ </select>
+
+ <select id="searchUserAll" resultType="com.hhit.model.User">
+     SELECT * from user;
+ </select>-->
+
+</mapper>

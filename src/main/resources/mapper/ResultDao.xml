@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.hhit.dao.ResultDao">
+    <update id="updateabs" parameterType="com.hhit.model.Result">
+        update result set absence=#{absence} where stuID=#{stuID}and coursename=#{coursename}and term=#{term}
+    </update>
+    <select id="selectres" resultType="com.hhit.model.Result" parameterType="java.util.List">
+        select * from result where stuID=#{0}and coursename=#{1} and term=#{2}
+    </select>
+    <insert id="addresult" parameterType="com.hhit.model.Result">
+        insert into result(stuID,coursename,term,stuClass)
+        value(#{stuID},#{coursename},#{term},#{stuClass})
+    </insert>
+    <select id="selectresult" resultType="com.hhit.model.Result" parameterType="java.util.List">
+        select * from result where stuClass=#{0} and coursename=#{1} and term=#{2}
+    </select>
+    <update id="updatedate" parameterType="com.hhit.model.Student">
+        update result set day=CONCAT(day,#{day})  where stuID=#{stuID}and coursename=#{coursename}and term=#{term}
+    </update>
+    <select id="selectabs" resultType="com.hhit.model.Result" parameterType="java.util.List">
+        select * from result where stuID=#{0} and coursename=#{1} and term=#{2}
+    </select>
+
+</mapper>
